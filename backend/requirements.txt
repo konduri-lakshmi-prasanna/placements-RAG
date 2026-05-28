@@ -1,6 +1,6 @@
 # Core RAG
 langchain==0.2.16
-langchain-anthropic==0.1.23
+langchain-groq==0.1.9
 langchain-community==0.2.16
 langchain-chroma==0.1.4
 
@@ -11,7 +11,7 @@ pypdf==4.3.1
 Pillow==10.4.0
 
 # Vision / Chart captioning
-anthropic==0.34.2
+groq==0.9.0
 
 # Embeddings & Vector Store
 sentence-transformers==3.1.1

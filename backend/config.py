@@ -17,10 +17,13 @@ for d in [DATA_DIR, CHROMA_DIR, LOGS_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
 # ── LLM ───────────────────────────────────────────────────────────────────
-ANTHROPIC_API_KEY   = os.getenv("ANTHROPIC_API_KEY", "")
-LLM_MODEL           = "claude-sonnet-4-20250514"
+GROQ_API_KEY        = os.getenv("GROQ_API_KEY", "")
+LLM_MODEL           = "llama-3.3-70b-versatile"   # Groq model
 LLM_MAX_TOKENS      = 1024
 LLM_TEMPERATURE     = 0.0          # deterministic for RAG
+
+# ── Vision model (for chart captioning) ───────────────────────────────────
+VISION_MODEL        = "meta-llama/llama-4-scout-17b-16e-instruct"  # Groq vision model
 
 # ── Embeddings ────────────────────────────────────────────────────────────
 EMBED_MODEL         = "all-MiniLM-L6-v2"   # fast, 384-dim, good for tables

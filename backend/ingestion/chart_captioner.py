@@ -1,8 +1,8 @@
 """
-chart_captioner.py — Multimodal chart-to-text using Claude Vision.
+chart_captioner.py — Multimodal chart-to-text using Groq Vision.
 
 Bar charts in Section 3 are image content. This module sends each
-chart image to Claude claude-sonnet-4-20250514 with a structured prompt and gets
+chart image to a Groq vision model with a structured prompt and gets
 back a text description that can be embedded in the vector store.
 
 This is the key RAG challenge: images must become text before indexing.
@@ -13,13 +13,13 @@ from __future__ import annotations
 import base64
 from dataclasses import dataclass
 
-import anthropic
+from groq import Groq
 from loguru import logger
 
-from config import ANTHROPIC_API_KEY, LLM_MODEL
+from config import GROQ_API_KEY, VISION_MODEL
 
 
-client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+client = Groq(api_key=GROQ_API_KEY)
 
 CAPTION_PROMPT = """
 You are analysing a hiring distribution bar chart for a placement intelligence system.
@@ -64,7 +64,7 @@ def _parse_caption(text: str) -> dict:
 
 def caption_chart(image_bytes: bytes, fallback_company: str = "Unknown") -> ChartCaption:
     """
-    Send one chart image to Claude Vision and return a ChartCaption.
+    Send one chart image to Groq Vision and return a ChartCaption.
 
     Parameters
     ----------
@@ -74,25 +74,23 @@ def caption_chart(image_bytes: bytes, fallback_company: str = "Unknown") -> Char
     b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
 
     try:
-        response = client.messages.create(
-            model=LLM_MODEL,
+        response = client.chat.completions.create(
+            model=VISION_MODEL,
             max_tokens=256,
             messages=[{
                 "role": "user",
                 "content": [
                     {
-                        "type":       "image",
-                        "source": {
-                            "type":       "base64",
-                            "media_type": "image/png",
-                            "data":       b64,
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{b64}",
                         },
                     },
                     {"type": "text", "text": CAPTION_PROMPT},
                 ],
             }],
         )
-        raw = response.content[0].text
+        raw = response.choices[0].message.content
         parsed = _parse_caption(raw)
 
         company  = parsed.get("company", fallback_company)

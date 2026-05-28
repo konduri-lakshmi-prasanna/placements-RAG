@@ -1,9 +1,9 @@
 """
-rag_chain.py — LangChain RAG chain using Claude.
+rag_chain.py — LangChain RAG chain using Groq.
 
 Builds the context window from retrieved chunks,
 injects conflict warnings, multi-hop reasoning chains,
-and calls Claude for the final answer.
+and calls Groq LLM for the final answer.
 """
 
 from __future__ import annotations
@@ -11,10 +11,10 @@ from __future__ import annotations
 from typing import Optional
 
 from langchain.prompts import ChatPromptTemplate
-from langchain_anthropic import ChatAnthropic
+from langchain_groq import ChatGroq
 from loguru import logger
 
-from config import ANTHROPIC_API_KEY, LLM_MAX_TOKENS, LLM_MODEL, LLM_TEMPERATURE
+from config import GROQ_API_KEY, LLM_MAX_TOKENS, LLM_MODEL, LLM_TEMPERATURE
 from retrieval.conflict_detector import format_conflict_warning
 from retrieval.retriever import RetrievalResult
 
@@ -47,13 +47,13 @@ Answer based strictly on the context above:"""
 
 class RAGChain:
     """
-    Builds context from retrieval results and generates answers with Claude.
+    Builds context from retrieval results and generates answers with Groq.
     """
 
     def __init__(self) -> None:
-        self._llm = ChatAnthropic(
+        self._llm = ChatGroq(
             model=LLM_MODEL,
-            api_key=ANTHROPIC_API_KEY,
+            api_key=GROQ_API_KEY,
             max_tokens=LLM_MAX_TOKENS,
             temperature=LLM_TEMPERATURE,
         )
