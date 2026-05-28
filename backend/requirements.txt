@@ -1,0 +1,35 @@
+# Core RAG
+langchain==0.2.16
+langchain-anthropic==0.1.23
+langchain-community==0.2.16
+langchain-chroma==0.1.4
+
+# PDF & Table Extraction
+pdfplumber==0.11.4
+camelot-py[cv]==0.11.0
+pypdf==4.3.1
+Pillow==10.4.0
+
+# Vision / Chart captioning
+anthropic==0.34.2
+
+# Embeddings & Vector Store
+sentence-transformers==3.1.1
+chromadb==0.5.7
+
+# API Server
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.12
+
+# Utilities
+numpy==1.26.4
+pandas==2.2.3
+python-dotenv==1.0.1
+pydantic==2.9.2
+scikit-learn==1.5.2
+tqdm==4.66.5
+loguru==0.7.2
+
+# Evaluation
+ragas==0.1.21
