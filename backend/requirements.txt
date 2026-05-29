@@ -26,8 +26,7 @@ python-multipart==0.0.12
 numpy==1.26.4
 pandas==2.2.3
 python-dotenv==1.0.1
-pydantic==2.5.0
-pydantic-core==2.14.1
+pydantic==1.10.13
 scikit-learn==1.5.2
 tqdm==4.66.5
 loguru==0.7.2
