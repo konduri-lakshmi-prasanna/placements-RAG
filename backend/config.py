@@ -5,6 +5,8 @@ All tuneable parameters live here. No magic strings in other modules.
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # ── Paths ──────────────────────────────────────────────────────────────────
 BASE_DIR        = Path(__file__).parent

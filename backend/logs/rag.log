@@ -1,0 +1,126 @@
+2026-05-28 22:31:02.723 | INFO     | main:lifespan:53 - Starting PlacementIQ RAG system...
+2026-05-28 22:31:02.723 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-05-28 22:31:03.664 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-05-28 22:31:03.665 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-05-28 22:31:03.667 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-05-28 22:31:03.667 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:31:03.669 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:31:03.669 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:31:03.669 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:31:03.670 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-05-28 22:31:03.670 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-05-28 22:31:03.671 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-05-28 22:31:09.131 | SUCCESS  | retrieval.vector_store:build:87 - Vector store built: 92 chunks in 'placement_rag'
+2026-05-28 22:31:10.747 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Vector store: 92 chunks.
+2026-05-28 22:31:34.019 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'Amazon'}
+2026-05-28 22:31:34.582 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:34:57.158 | INFO     | evaluation.eval_runner:run_evaluation:57 - Starting evaluation run — 30 queries
+2026-05-28 22:34:57.159 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'TCS'}
+2026-05-28 22:34:57.889 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:34:57.890 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E1] ✓ score=1.00 routing=✓ (0.73s)
+2026-05-28 22:34:57.891 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'Deloitte'}
+2026-05-28 22:34:58.332 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:34:58.333 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E2] ✗ score=0.00 routing=✗ (0.44s)
+2026-05-28 22:34:58.334 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'Amazon'}
+2026-05-28 22:34:59.218 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:34:59.219 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E3] ✗ score=0.00 routing=✗ (0.89s)
+2026-05-28 22:34:59.220 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=direct_lookup, section=interview, params={'company': 'Flipkart'}
+2026-05-28 22:34:59.680 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=direct_lookup, chunks_used=0, conflicts=0
+2026-05-28 22:34:59.682 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E4] ✗ score=0.00 routing=✓ (0.46s)
+2026-05-28 22:34:59.683 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'Google'}
+2026-05-28 22:35:00.544 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:00.545 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E5] ✓ score=1.00 routing=✗ (0.86s)
+2026-05-28 22:35:00.546 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'Microsoft'}
+2026-05-28 22:35:01.268 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:01.269 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E6] ✓ score=1.00 routing=✗ (0.72s)
+2026-05-28 22:35:01.271 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=direct_lookup, section=interview, params={'company': 'TCS'}
+2026-05-28 22:35:01.670 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=direct_lookup, chunks_used=0, conflicts=0
+2026-05-28 22:35:01.671 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E7] ✗ score=0.00 routing=✓ (0.4s)
+2026-05-28 22:35:01.672 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=general, section=None, params={'company': 'Amazon'}
+2026-05-28 22:35:01.744 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Amazon — CGPA cutoff: official=6.4 vs portal=7.0, Package (LPA): official=28.6 vs portal=32.0
+2026-05-28 22:35:02.485 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=general, chunks_used=5, conflicts=1
+2026-05-28 22:35:02.486 | INFO     | evaluation.eval_runner:run_evaluation:107 - [E8] ✓ score=1.00 routing=✗ (0.81s)
+2026-05-28 22:35:02.487 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'backlogs': 2}
+2026-05-28 22:35:03.219 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:03.220 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M1] ✗ score=0.11 routing=✓ (0.73s)
+2026-05-28 22:35:03.221 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={}
+2026-05-28 22:35:04.376 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:04.377 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M2] ✓ score=0.69 routing=✓ (1.16s)
+2026-05-28 22:35:04.378 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={}
+2026-05-28 22:35:04.441 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'Which company has the highest package among IT service firms?' (best=0.668) — possible OOC
+2026-05-28 22:35:05.904 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:05.905 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M3] ✗ score=0.33 routing=✓ (1.53s)
+2026-05-28 22:35:05.906 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={}
+2026-05-28 22:35:05.971 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'Which companies are bond-free?' (best=0.653) — possible OOC
+2026-05-28 22:35:06.680 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:06.681 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M4] ✗ score=0.20 routing=✓ (0.77s)
+2026-05-28 22:35:06.681 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=general, section=None, params={'company': 'TCS'}
+2026-05-28 22:35:08.331 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=general, chunks_used=5, conflicts=0
+2026-05-28 22:35:08.333 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M5] ✓ score=1.00 routing=✗ (1.65s)
+2026-05-28 22:35:08.334 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=direct_lookup, section=hiring, params={'company': 'Amazon'}
+2026-05-28 22:35:08.714 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=direct_lookup, chunks_used=0, conflicts=0
+2026-05-28 22:35:08.716 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M6] ✗ score=0.00 routing=✓ (0.38s)
+2026-05-28 22:35:08.718 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=direct_lookup, section=hiring, params={}
+2026-05-28 22:35:09.349 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=direct_lookup, chunks_used=0, conflicts=0
+2026-05-28 22:35:09.350 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M7] ✗ score=0.00 routing=✓ (0.63s)
+2026-05-28 22:35:09.351 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=direct_lookup, section=interview, params={'company': 'Microsoft'}
+2026-05-28 22:35:10.283 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=direct_lookup, chunks_used=0, conflicts=0
+2026-05-28 22:35:10.284 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M8] ✗ score=0.00 routing=✓ (0.93s)
+2026-05-28 22:35:10.285 | INFO     | agent.prompt_router:classify_query:162 - Query classified as temporal: Which company's package grew the most from 2021 to 2024?
+2026-05-28 22:35:11.208 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=temporal, chunks_used=5, conflicts=0
+2026-05-28 22:35:11.209 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M9] ✗ score=0.33 routing=✓ (0.92s)
+2026-05-28 22:35:11.210 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=general, section=None, params={'tech_focus': 'Python'}
+2026-05-28 22:35:11.274 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'Which companies use Python as the technical focus?' (best=0.655) — possible OOC
+2026-05-28 22:35:15.365 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=general, chunks_used=5, conflicts=0
+2026-05-28 22:35:15.367 | INFO     | evaluation.eval_runner:run_evaluation:107 - [M10] ✓ score=1.00 routing=✗ (4.16s)
+2026-05-28 22:35:15.368 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'cgpa': 7.0, 'backlogs': 1}
+2026-05-28 22:35:23.218 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:23.219 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H1] ✓ score=0.74 routing=✗ (7.85s)
+2026-05-28 22:35:23.221 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=direct_lookup, section=hiring, params={'tech_focus': 'Python'}
+2026-05-28 22:35:24.604 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=direct_lookup, chunks_used=0, conflicts=0
+2026-05-28 22:35:24.605 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H2] ✗ score=0.00 routing=✗ (1.38s)
+2026-05-28 22:35:24.606 | INFO     | agent.prompt_router:classify_query:197 - Query classified: type=threshold_filter, section=eligibility, params={'cgpa': 8.0}
+2026-05-28 22:35:25.621 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-05-28 22:35:25.622 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H3] ✗ score=0.25 routing=✗ (1.02s)
+2026-05-28 22:35:25.624 | INFO     | agent.prompt_router:classify_query:155 - Query classified as conflict: Which company had conflicting CGPA data across sources?
+2026-05-28 22:35:25.691 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Google — CGPA cutoff: official=7.4 vs portal=7.5, Package (LPA): official=42.0 vs portal=45.0
+2026-05-28 22:35:25.691 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Microsoft — CGPA cutoff: official=6.1 vs portal=7.0, Package (LPA): official=21.4 vs portal=25.0
+2026-05-28 22:35:29.766 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=conflict, chunks_used=5, conflicts=2
+2026-05-28 22:35:29.767 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H4] ✓ score=0.60 routing=✓ (4.14s)
+2026-05-28 22:35:29.768 | INFO     | agent.prompt_router:classify_query:155 - Query classified as conflict: Is the Amazon CGPA cutoff 6.4 or 7.0? Explain.
+2026-05-28 22:35:29.858 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Amazon — CGPA cutoff: official=6.4 vs portal=7.0, Package (LPA): official=28.6 vs portal=32.0
+2026-05-28 22:35:35.092 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=conflict, chunks_used=5, conflicts=1
+2026-05-28 22:35:35.094 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H5] ✓ score=0.67 routing=✓ (5.33s)
+2026-05-28 22:35:35.226 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Google — CGPA cutoff: official=7.4 vs portal=7.5, Package (LPA): official=42.0 vs portal=45.0
+2026-05-28 22:35:36.588 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=eligibility_package, chunks_used=5, conflicts=1
+2026-05-28 22:35:36.589 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H6] ✓ score=0.56 routing=✗ (1.49s)
+2026-05-28 22:35:36.591 | INFO     | agent.prompt_router:classify_query:162 - Query classified as temporal: Compare Google and Amazon on all dimensions: eligibility, pa
+2026-05-28 22:35:36.664 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'Compare Google and Amazon on all dimensions: eligibility, package, hiring, trend.' (best=0.693) — possible OOC
+2026-05-28 22:35:40.314 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=temporal, chunks_used=5, conflicts=0
+2026-05-28 22:35:40.316 | INFO     | evaluation.eval_runner:run_evaluation:107 - [H7] ✗ score=0.22 routing=✗ (3.72s)
+2026-05-28 22:35:40.317 | INFO     | agent.prompt_router:classify_query:117 - Query classified as out-of-corpus: What is TCS's campus visit date at SVECW?
+2026-05-28 22:35:40.318 | INFO     | evaluation.eval_runner:run_evaluation:107 - [X1] ✓ score=1.00 routing=✓ (0.0s)
+2026-05-28 22:35:40.319 | INFO     | agent.prompt_router:classify_query:117 - Query classified as out-of-corpus: Should I join Google or Microsoft? Which is better for my ca
+2026-05-28 22:35:40.320 | INFO     | evaluation.eval_runner:run_evaluation:107 - [X2] ✗ score=0.00 routing=✓ (0.0s)
+2026-05-28 22:35:40.322 | INFO     | evaluation.eval_runner:run_evaluation:107 - [X3] ✓ score=1.00 routing=✓ (0.0s)
+2026-05-28 22:35:40.323 | INFO     | agent.prompt_router:classify_query:117 - Query classified as out-of-corpus: What is Infosys's current stock price?
+2026-05-28 22:35:40.325 | INFO     | evaluation.eval_runner:run_evaluation:107 - [X4] ✓ score=1.00 routing=✓ (0.0s)
+2026-05-28 22:35:40.327 | INFO     | agent.prompt_router:classify_query:117 - Query classified as out-of-corpus: Which company in this dataset pays the highest in the world?
+2026-05-28 22:35:40.331 | INFO     | evaluation.eval_runner:run_evaluation:107 - [X5] ✗ score=0.27 routing=✓ (0.0s)
+2026-05-28 22:35:40.341 | SUCCESS  | evaluation.eval_runner:run_evaluation:131 - Evaluation complete. avg_score=0.47, routing=0.6, ooc=1.0
+2026-05-28 22:49:40.427 | INFO     | main:lifespan:53 - Starting PlacementIQ RAG system...
+2026-05-28 22:49:40.429 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-05-28 22:49:44.815 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-05-28 22:49:44.818 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-05-28 22:49:44.821 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-05-28 22:49:44.823 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:49:44.824 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:49:44.826 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:49:44.827 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-05-28 22:49:44.828 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-05-28 22:49:44.834 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-05-28 22:49:44.838 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-05-28 22:49:44.844 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-05-28 22:49:44.906 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-05-28 22:49:50.746 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Vector store: 92 chunks.
+2026-05-28 23:18:21.256 | INFO     | main:lifespan:72 - Shutting down.
