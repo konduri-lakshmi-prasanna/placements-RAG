@@ -21,7 +21,7 @@
       "answer_score": 1.0,
       "answer_preview": "The CGPA requirement for TCS is 7.5.",
       "conflict_raised": false,
-      "elapsed_s": 0.73
+      "elapsed_s": 12.09
     },
     {
       "id": "E2",
@@ -34,7 +34,7 @@
       "answer_score": 0.0,
       "answer_preview": "Deloitte allows up to 1 backlog.",
       "conflict_raised": false,
-      "elapsed_s": 0.44
+      "elapsed_s": 0.49
     },
     {
       "id": "E3",
@@ -47,7 +47,7 @@
       "answer_score": 0.0,
       "answer_preview": "The bond period for Amazon is 2 year(s).",
       "conflict_raised": false,
-      "elapsed_s": 0.89
+      "elapsed_s": 0.3
     },
     {
       "id": "E4",
@@ -60,7 +60,7 @@
       "answer_score": 0.0,
       "answer_preview": "I don't have this information in the dataset.",
       "conflict_raised": false,
-      "elapsed_s": 0.46
+      "elapsed_s": 0.22
     },
     {
       "id": "E5",
@@ -73,7 +73,7 @@
       "answer_score": 1.0,
       "answer_preview": "The package offered by Google is 42.0 LPA.",
       "conflict_raised": false,
-      "elapsed_s": 0.86
+      "elapsed_s": 0.29
     },
     {
       "id": "E6",
@@ -86,7 +86,7 @@
       "answer_score": 1.0,
       "answer_preview": "Yes, Microsoft allows up to 1 backlog.",
       "conflict_raised": false,
-      "elapsed_s": 0.72
+      "elapsed_s": 0.3
     },
     {
       "id": "E7",
@@ -99,7 +99,7 @@
       "answer_score": 0.0,
       "answer_preview": "I don't have this information in the dataset.",
       "conflict_raised": false,
-      "elapsed_s": 0.4
+      "elapsed_s": 0.33
     },
     {
       "id": "E8",
@@ -112,7 +112,7 @@
       "answer_score": 1.0,
       "answer_preview": "According to the provided context, the key interview topics at Amazon include DSA, C++, and LLD, with a technical focus on C++. \n\nTherefore, the programming language tested at Amazon is: C++.",
       "conflict_raised": true,
-      "elapsed_s": 0.81
+      "elapsed_s": 0.46
     },
     {
       "id": "M1",
@@ -125,7 +125,7 @@
       "answer_score": 0.11,
       "answer_preview": "Based on the provided context, the company that allows at least 2 backlogs is:\n* IBM (allows up to 2 backlogs)",
       "conflict_raised": false,
-      "elapsed_s": 0.73
+      "elapsed_s": 0.39
     },
     {
       "id": "M2",
@@ -138,7 +138,7 @@
       "answer_score": 0.69,
       "answer_preview": "Based on the provided context, the companies that require a CGPA above 8.0 are:\n* Tech Mahindra (minimum CGPA of 8.1)\n* Cognizant (minimum CGPA of 8.4)\n* SAP (minimum CGPA of 8.4)",
       "conflict_raised": false,
-      "elapsed_s": 1.16
+      "elapsed_s": 0.51
     },
     {
       "id": "M3",
@@ -151,7 +151,7 @@
       "answer_score": 0.33,
       "answer_preview": "To determine the company with the highest package among IT service firms, we need to identify which companies are classified as IT service firms and then compare their packages.\n\nFrom the context:\n- I",
       "conflict_raised": false,
-      "elapsed_s": 1.53
+      "elapsed_s": 1.02
     },
     {
       "id": "M4",
@@ -164,7 +164,7 @@
       "answer_score": 0.2,
       "answer_preview": "Based on the provided context, the company that is bond-free is:\n* IBM, with a bond period of 0 year(s) and a package of 27.5 LPA.",
       "conflict_raised": false,
-      "elapsed_s": 0.77
+      "elapsed_s": 0.34
     },
     {
       "id": "M5",
@@ -175,9 +175,9 @@
       "routing_ok": false,
       "ooc_ok": true,
       "answer_score": 1.0,
-      "answer_preview": "To compare TCS and Infosys on all eligibility criteria based on the provided context:\n\n* **Minimum CGPA:**\n  - TCS: 7.5\n  - Infosys: 8.0 (as per official and consistent data across sections)\n* **Backl",
+      "answer_preview": "To compare TCS and Infosys on all eligibility criteria based on the provided context:\n\n* **Minimum CGPA:**\n  - TCS: 7.5\n  - Infosys: 8.0 (consistent across sections)\n* **Backlogs:**\n  - TCS: 0 backlog",
       "conflict_raised": false,
-      "elapsed_s": 1.65
+      "elapsed_s": 0.88
     },
     {
       "id": "M6",
@@ -190,7 +190,7 @@
       "answer_score": 0.0,
       "answer_preview": "I don't have this information in the dataset.",
       "conflict_raised": false,
-      "elapsed_s": 0.38
+      "elapsed_s": 0.25
     },
     {
       "id": "M7",
@@ -203,7 +203,7 @@
       "answer_score": 0.0,
       "answer_preview": "I don't have this information in the dataset.",
       "conflict_raised": false,
-      "elapsed_s": 0.63
+      "elapsed_s": 0.23
     },
     {
       "id": "M8",
@@ -216,7 +216,7 @@
       "answer_score": 0.0,
       "answer_preview": "I don't have this information in the dataset.",
       "conflict_raised": false,
-      "elapsed_s": 0.93
+      "elapsed_s": 0.38
     },
     {
       "id": "M9",
@@ -229,7 +229,7 @@
       "answer_score": 0.33,
       "answer_preview": "To determine which company's package grew the most from 2021 to 2024, let's analyze the data:\n\n* Amazon's package in 2021: 22.0 LPA\n* Amazon's package in 2024: 28.6 LPA\n* Growth: 28.6 - 22.0 = 6.6 LPA",
       "conflict_raised": false,
-      "elapsed_s": 0.92
+      "elapsed_s": 0.77
     },
     {
       "id": "M10",
@@ -240,9 +240,9 @@
       "routing_ok": false,
       "ooc_ok": true,
       "answer_score": 1.0,
-      "answer_preview": "Based on the provided context, the companies that use Python as the technical focus are:\n\n* Intel\n* Google \n* Flipkart (mentioned in Q2) \n* Oracle (mentioned in Q2)",
+      "answer_preview": "Based on the provided context, the companies that use Python as the technical focus are:\n\n* Intel\n* Google \n* Flipkart and Oracle are also mentioned in Q2 as using Python, but their details are not pr",
       "conflict_raised": false,
-      "elapsed_s": 4.16
+      "elapsed_s": 9.01
     },
     {
       "id": "H1",
@@ -255,7 +255,7 @@
       "answer_score": 0.74,
       "answer_preview": "To find the company that offers the maximum pay with no bond for a student with a CGPA of 7.0 and 1 backlog, let's analyze the given context:\n\n1. **CGPA Requirement**: The student has a CGPA of 7.0, w",
       "conflict_raised": false,
-      "elapsed_s": 7.85
+      "elapsed_s": 1.37
     },
     {
       "id": "H2",
@@ -268,7 +268,7 @@
       "answer_score": 0.0,
       "answer_preview": "I don't have this information in the dataset.",
       "conflict_raised": false,
-      "elapsed_s": 1.38
+      "elapsed_s": 0.21
     },
     {
       "id": "H3",
@@ -281,7 +281,7 @@
       "answer_score": 0.25,
       "answer_preview": "For CGPA 8.0+ and zero backlog students, the eligible companies are:\n* Google (minimum CGPA: 7.4, allows 0 backlogs)\n* Oracle (minimum CGPA: 7.7, allows 0 backlogs)\n* SAP (minimum CGPA: 8.4, allows 0 ",
       "conflict_raised": false,
-      "elapsed_s": 1.02
+      "elapsed_s": 2.83
     },
     {
       "id": "H4",
@@ -294,7 +294,7 @@
       "answer_score": 0.6,
       "answer_preview": "Based on the provided context, the companies with conflicting CGPA data across sources are:\n\n* Google: \n  * Official source: 7.4\n  * Portal source: 7.5\n* Microsoft: \n  * Official source: 6.1\n  * Porta",
       "conflict_raised": true,
-      "elapsed_s": 4.14
+      "elapsed_s": 3.96
     },
     {
       "id": "H5",
@@ -307,7 +307,7 @@
       "answer_score": 0.67,
       "answer_preview": "There are conflicting values for the Amazon CGPA cutoff. \n* Official sources state the CGPA cutoff is 6.4.\n* Portal sources state the CGPA cutoff is 7.0.\nI recommend verifying with the official placem",
       "conflict_raised": true,
-      "elapsed_s": 5.33
+      "elapsed_s": 3.62
     },
     {
       "id": "H6",
@@ -320,7 +320,7 @@
       "answer_score": 0.56,
       "answer_preview": "To determine the company with the best package-to-CGPA ratio, we need to calculate this ratio for each company. \n\nHere are the calculations:\n- Amazon: 28.6 LPA / 6.4 CGPA = 4.47\n- Samsung R&D: 7.6 LPA",
       "conflict_raised": true,
-      "elapsed_s": 1.49
+      "elapsed_s": 4.7
     },
     {
       "id": "H7",
@@ -333,7 +333,7 @@
       "answer_score": 0.22,
       "answer_preview": "Based on the provided context, here's a comparison of Google and Amazon:\n\n* **Eligibility**: I don't have this information in the dataset.\n* **Package**:\n  * Google: \n    + 2021: 38.0 LPA\n    + 2022: ",
       "conflict_raised": false,
-      "elapsed_s": 3.72
+      "elapsed_s": 0.85
     },
     {
       "id": "X1",
