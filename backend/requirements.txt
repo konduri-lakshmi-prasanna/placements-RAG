@@ -14,8 +14,8 @@ Pillow==10.4.0
 groq==0.9.0
 
 # Embeddings & Vector Store
-sentence-transformers==3.1.1
-chromadb==0.5.7
+sentence-transformers==2.7.0
+chromadb==0.4.24
 
 # API Server
 fastapi==0.115.0
@@ -26,12 +26,13 @@ python-multipart==0.0.12
 numpy==1.26.4
 pandas==2.2.3
 python-dotenv==1.0.1
-pydantic==2.7.4
+pydantic==2.5.3
+pydantic-core==2.14.6
 scikit-learn==1.5.2
 tqdm==4.66.5
 loguru==0.7.2
 
 # Evaluation
-ragas==0.1.21
+ragas==0.1.9
 requests
 mysql-connector-python
