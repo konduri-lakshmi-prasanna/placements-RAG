@@ -91,3 +91,29 @@
 2026-06-01 15:17:29.057 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: ceo of tcs
 2026-06-01 15:17:29.058 | INFO     | main:query:129 - Incoming query: 'ceo of tcs' → type=web_search
 2026-06-01 15:23:23.695 | INFO     | main:lifespan:79 - Shutting down.
+2026-06-01 15:23:43.324 | INFO     | main:lifespan:60 - Starting PlacementIQ RAG system...
+2026-06-01 15:23:43.325 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-01 15:23:43.968 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-01 15:23:43.968 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-01 15:23:43.969 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-01 15:23:43.970 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-01 15:23:43.970 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-01 15:23:43.970 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-01 15:23:43.971 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-01 15:23:43.971 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-01 15:23:43.971 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-01 15:23:43.971 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-01 15:23:43.973 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-01 15:23:43.990 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-01 15:23:44.958 | SUCCESS  | main:lifespan:77 - PlacementIQ ready. Vector store: 92 chunks.
+2026-06-01 15:23:57.067 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: ceo of tcs
+2026-06-01 15:23:57.068 | INFO     | main:query:129 - Incoming query: 'ceo of tcs' → type=web_search
+2026-06-01 15:24:37.529 | INFO     | agent.prompt_router:classify_query:186 - Query classified as student_eligibility: am i eligible for tcs my cgpa is 7.5
+2026-06-01 15:24:37.530 | INFO     | main:query:129 - Incoming query: 'am i eligible for tcs my cgpa is 7.5' → type=student_eligibility
+2026-06-01 15:24:37.629 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: TCS — CGPA cutoff: official=7.5 vs portal=7.0, Package (LPA): official=4.1 vs portal=4.5
+2026-06-01 15:24:50.185 | INFO     | agent.prompt_router:classify_query:186 - Query classified as student_eligibility: is roll no 21A91A0501 eligible for tcs
+2026-06-01 15:24:50.186 | INFO     | main:query:129 - Incoming query: 'is roll no 21A91A0501 eligible for tcs' → type=student_eligibility
+2026-06-01 15:25:05.556 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'infosys'}
+2026-06-01 15:25:05.557 | INFO     | main:query:129 - Incoming query: 'what is the package offered by infosys' → type=threshold_filter
+2026-06-01 15:25:06.105 | INFO     | agent.rag_chain:answer:144 - Answer generated for query_type=threshold_filter, chunks_used=5, conflicts=0
+2026-06-01 15:29:18.446 | INFO     | main:lifespan:79 - Shutting down.
