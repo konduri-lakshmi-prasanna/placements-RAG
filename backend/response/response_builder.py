@@ -8,6 +8,9 @@ Combines:
   - Source citations
   - Query type label
   - Out-of-corpus / fallback indicator
+  - Confidence score (0.0–1.0)         ← NEW
+  - Lookback ratio (0.0–1.0)           ← NEW
+  - Hallucination warning              ← NEW
 """
 
 from __future__ import annotations
@@ -26,23 +29,29 @@ class Source:
 
 @dataclass
 class FinalResponse:
-    answer:           str
-    query_type:       str
-    sources:          list[Source]
-    conflict_warning: Optional[str]
-    multihop_steps:   list[str]
-    is_out_of_corpus: bool
-    is_conflict:      bool
+    answer:                str
+    query_type:            str
+    sources:               list[Source]
+    conflict_warning:      Optional[str]
+    multihop_steps:        list[str]
+    is_out_of_corpus:      bool
+    is_conflict:           bool
+    confidence:            float         # 0.0–1.0 — how well-matched the retrieved chunks are
+    lookback_ratio:        float         # 0.0–1.0 — how grounded the answer is in context
+    hallucination_warning: Optional[str] # set if confidence + lookback are both low
 
     def to_dict(self) -> dict:
         return {
-            "answer":           self.answer,
-            "query_type":       self.query_type,
-            "sources":          [asdict(s) for s in self.sources],
-            "conflict_warning": self.conflict_warning,
-            "multihop_steps":   self.multihop_steps,
-            "is_out_of_corpus": self.is_out_of_corpus,
-            "is_conflict":      self.is_conflict,
+            "answer":                self.answer,
+            "query_type":            self.query_type,
+            "sources":               [asdict(s) for s in self.sources],
+            "conflict_warning":      self.conflict_warning,
+            "multihop_steps":        self.multihop_steps,
+            "is_out_of_corpus":      self.is_out_of_corpus,
+            "is_conflict":           self.is_conflict,
+            "confidence":            self.confidence,
+            "lookback_ratio":        self.lookback_ratio,
+            "hallucination_warning": self.hallucination_warning,
         }
 
 
@@ -72,4 +81,7 @@ def build_response(llm_output: dict) -> FinalResponse:
         multihop_steps=llm_output.get("multihop_steps", []),
         is_out_of_corpus=llm_output.get("query_type") == "out_of_corpus",
         is_conflict=llm_output.get("conflict_warning") is not None,
+        confidence=llm_output.get("confidence", 0.0),
+        lookback_ratio=llm_output.get("lookback_ratio", 0.0),
+        hallucination_warning=llm_output.get("hallucination_warning"),
     )
