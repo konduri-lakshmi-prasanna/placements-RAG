@@ -7,6 +7,13 @@ Endpoints:
   GET  /stats          — chunk count, collection info
   POST /eval           — run full evaluation suite
   GET  /health         — health check
+
+Query routing logic:
+  web_search          → ToolAgent (uses web_search_tool)
+  student_eligibility → ToolAgent (uses mysql_tool)
+  computed            → ToolAgent (uses calculator_tool)
+  out_of_corpus       → friendly fallback message
+  everything else     → normal RAG chain (PDF corpus)
 """
 
 from __future__ import annotations
@@ -39,7 +46,7 @@ logger.add(LOG_FILE, level=LOG_LEVEL, rotation="10 MB", retention="7 days")
 
 
 # ── App state (singletons) ────────────────────────────────────────────────
-vs        = VectorStore()
+vs         = VectorStore()
 retriever: Optional[Retriever]  = None
 rag_chain: Optional[RAGChain]   = None
 tool_agent: Optional[ToolAgent] = None
@@ -59,8 +66,8 @@ async def lifespan(app: FastAPI):
             "Place the dataset PDF in backend/data/ and restart."
         )
     else:
-        pages    = parse_pdf(PDF_PATH)
-        docs     = chunk_pages(pages)
+        pages = parse_pdf(PDF_PATH)
+        docs  = chunk_pages(pages)
         vs.build(docs)
 
     retriever  = Retriever(vs)
@@ -91,7 +98,7 @@ app.add_middleware(
 
 class QueryRequest(BaseModel):
     question: str
-    use_agent: bool = False   # True → use ToolAgent for computed queries
+    use_agent: bool = False   # True → force ToolAgent regardless of query type
 
 
 class QueryResponse(BaseModel):
@@ -117,19 +124,65 @@ async def query(req: QueryRequest):
         raise HTTPException(503, "RAG system not ready. Check logs.")
 
     classified = classify_query(req.question)
+    query_type = classified.get("query_type")
 
-    # Computed queries → ToolAgent
-    if req.use_agent or classified.get("query_type") == "computed":
-        retrieval  = retriever.retrieve(req.question, classified)
-        context    = "\n".join(c.text for c in retrieval.chunks)
+    logger.info(f"Incoming query: '{req.question[:80]}' → type={query_type}")
+
+    # ── Decide routing ─────────────────────────────────────────────────
+    #
+    # ToolAgent handles:
+    #   1. web_search       — CEO names, stock prices, company news, etc.
+    #   2. student_eligibility — roll-no / "am I eligible" → MySQL DB
+    #   3. computed         — arithmetic over retrieved data
+    #   4. use_agent=True   — manually forced by frontend
+    #
+    USE_TOOL_AGENT = (
+        req.use_agent
+        or query_type == "computed"
+        or query_type == "web_search"           # NEW: live web lookup
+        or query_type == "student_eligibility"  # NEW: MySQL DB lookup
+    )
+
+    if USE_TOOL_AGENT:
+        # Try to retrieve any related PDF context (may be empty for web queries,
+        # but useful for hybrid questions like "Is TCS eligible for me? Also who is CEO?")
+        try:
+            retrieval = retriever.retrieve(req.question, classified)
+            context   = "\n".join(c.text for c in retrieval.chunks)
+        except Exception:
+            context = ""
+
         raw_answer = tool_agent.run(req.question, context)
-        llm_out    = {
+        llm_out = {
             "answer":           raw_answer,
-            "query_type":       "computed",
+            "query_type":       query_type,
             "sources":          [],
             "conflict_warning": None,
             "multihop_steps":   [],
         }
+
+    # ── Out-of-corpus: no tool match, no PDF match ─────────────────────
+    elif classified.get("is_out_of_corpus"):
+        logger.info(f"Out-of-corpus query: {req.question[:60]}")
+        llm_out = {
+            "answer": (
+                "I couldn't find this information in the placement dataset. "
+                "I can help you with:\n"
+                "• Company eligibility criteria (CGPA, backlogs, branches)\n"
+                "• Package and salary information\n"
+                "• Interview rounds and preparation tips\n"
+                "• Placement trends and statistics\n"
+                "• CEO names, stock prices, and company news (just ask naturally!)\n"
+                "• Student eligibility checks (share your roll number or CGPA)\n\n"
+                f"Reason: {classified.get('fallback_reason', 'Query outside dataset scope.')}"
+            ),
+            "query_type":       "out_of_corpus",
+            "sources":          [],
+            "conflict_warning": None,
+            "multihop_steps":   [],
+        }
+
+    # ── Normal RAG flow (PDF corpus) ───────────────────────────────────
     else:
         retrieval = retriever.retrieve(req.question, classified)
         llm_out   = rag_chain.answer(req.question, retrieval)
@@ -164,9 +217,9 @@ async def list_companies():
 @app.get("/stats")
 async def stats():
     return {
-        "chunk_count": vs.count,
-        "model":       "claude-sonnet-4-20250514",
-        "embed_model": "all-MiniLM-L6-v2",
+        "chunk_count":  vs.count,
+        "model":        LLM_MODEL if hasattr(LLM_MODEL, '__str__') else "llama-3.3-70b-versatile",
+        "embed_model":  "all-MiniLM-L6-v2",
         "vector_store": "ChromaDB",
     }
 
@@ -186,4 +239,3 @@ if __name__ == "__main__":
         port=API_PORT,
         reload=API_RELOAD,
     )
-    

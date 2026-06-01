@@ -46,38 +46,52 @@ CHUNK_SIZES = {
 }
 
 # ── Retrieval ─────────────────────────────────────────────────────────────
-RETRIEVAL_TOP_K     = 8             # candidates before re-ranking
-FINAL_TOP_K         = 5             # chunks sent to LLM
-SIMILARITY_THRESHOLD= 0.35          # below = likely out-of-corpus
+RETRIEVAL_TOP_K      = 8             # candidates before re-ranking
+FINAL_TOP_K          = 5             # chunks sent to LLM
+SIMILARITY_THRESHOLD = 0.35          # below = likely out-of-corpus
 
 # ── Deduplication ─────────────────────────────────────────────────────────
 DEDUP_SIMILARITY_THRESHOLD = 0.92   # cosine similarity for near-duplicate detection
 
 # ── Sections mapped to content types ─────────────────────────────────────
 SECTION_META = {
-    "Section 1":  {"section": "eligibility",  "content_type": "table"},
-    "Section 2":  {"section": "interview",    "content_type": "text"},
-    "Section 3":  {"section": "hiring",       "content_type": "table+image"},
-    "Section 4":  {"section": "multihop",     "content_type": "reasoning"},
-    "Section 5":  {"section": "trend",        "content_type": "timeseries"},
-    "Section 6":  {"section": "conflict",     "content_type": "conflict"},
-    "Section 7":  {"section": "statistics",   "content_type": "table"},
-    "Section 8":  {"section": "adversarial",  "content_type": "eval_only"},
-    "Section 9":  {"section": "eval_queries", "content_type": "eval_only"},
+    "Section 1":  {"section": "eligibility",   "content_type": "table"},
+    "Section 2":  {"section": "interview",     "content_type": "text"},
+    "Section 3":  {"section": "hiring",        "content_type": "table+image"},
+    "Section 4":  {"section": "multihop",      "content_type": "reasoning"},
+    "Section 5":  {"section": "trend",         "content_type": "timeseries"},
+    "Section 6":  {"section": "conflict",      "content_type": "conflict"},
+    "Section 7":  {"section": "statistics",    "content_type": "table"},
+    "Section 8":  {"section": "adversarial",   "content_type": "eval_only"},
+    "Section 9":  {"section": "eval_queries",  "content_type": "eval_only"},
     "Section 10": {"section": "chunking_guide","content_type": "meta"},
 }
 
 # ── Adversarial / Out-of-corpus query patterns ────────────────────────────
-# If a query matches these patterns AND similarity is low → fallback
+# NOTE: "stock price" and "work from home" have been REMOVED from here
+# because they are now handled by web_search_tool in the ToolAgent.
+# Only keep patterns that are truly unanswerable (not searchable on web).
 OUT_OF_CORPUS_PATTERNS = [
     "campus visit date",
-    "stock price",
-    "work from home",
-    "work-from-home",
     "how many students from svecw",
     "which is better for my career",
     "pays the highest in the world",
 ]
+
+# ── Web Search (SerpAPI) ──────────────────────────────────────────────────
+# Used by web_search_tool in agent/tools.py
+# Get a free key at https://serpapi.com (100 searches/month free)
+# Falls back to DuckDuckGo if not set.
+SERPAPI_KEY = os.getenv("SERPAPI_KEY", "")
+
+# ── MySQL Database ────────────────────────────────────────────────────────
+# Used by mysql_tool in agent/tools.py
+# Set these in your .env file after creating the database.
+# See: backend/db_setup.sql for table creation script.
+DB_HOST     = os.getenv("DB_HOST", "")
+DB_USER     = os.getenv("DB_USER", "root")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+DB_NAME     = os.getenv("DB_NAME", "placements_db")
 
 # ── API server ────────────────────────────────────────────────────────────
 API_HOST    = "0.0.0.0"

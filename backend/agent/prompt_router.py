@@ -2,16 +2,18 @@
 prompt_router.py — Query classification and routing.
 
 Classifies incoming queries into one of these types:
-  direct_lookup       — simple table lookup (easy)
-  threshold_filter    — filter with one condition (medium)
-  multi_filter        — multiple conditions
-  eligibility_package — CGPA + backlog → best package (multi-hop)
-  tech_package        — tech focus → best package (multi-hop)
-  eligibility_analyst — 3-hop: eligibility + analyst + package
-  bond_package        — bond=0 + package threshold
-  conflict            — conflicting data query
-  temporal            — year-indexed trend query
-  out_of_corpus       — graceful fallback
+  direct_lookup        — simple table lookup (easy)
+  threshold_filter     — filter with one condition (medium)
+  multi_filter         — multiple conditions
+  eligibility_package  — CGPA + backlog → best package (multi-hop)
+  tech_package         — tech focus → best package (multi-hop)
+  eligibility_analyst  — 3-hop: eligibility + analyst + package
+  bond_package         — bond=0 + package threshold
+  conflict             — conflicting data query
+  temporal             — year-indexed trend query
+  web_search           — external/general info (CEO, stock, news) → web_search_tool
+  student_eligibility  — student roll-no eligibility check → mysql_tool
+  out_of_corpus        — graceful fallback
 
 Also extracts numeric params (CGPA, backlogs, package threshold)
 for use by the multi-hop resolver.
@@ -79,6 +81,56 @@ _MULTIHOP_BOND_PATTERNS = [
     r"bond.*0.*lpa",
 ]
 
+# ── NEW: Roll number regex (matches formats like 21A91A0501, 22B95A0312) ──
+_ROLL_RE = re.compile(r"\b\d{2}[A-Za-z]\d{2}[A-Za-z]\d{4,6}\b")
+
+# ── NEW: Student eligibility keywords (DB lookup) ─────────────────────────
+_STUDENT_ELIGIBILITY_KEYWORDS = [
+    "my roll", "roll no", "roll number", "am i eligible",
+    "can i apply", "student id", "register number", "my cgpa",
+    "i have cgpa", "i got cgpa", "i have backlog", "i have no backlog",
+    "my backlogs", "am i qualified",
+]
+
+# ── NEW: Web search patterns (external/live info) ─────────────────────────
+_WEB_SEARCH_PATTERNS = [
+    r"\bwho is (the\s+)?(ceo|cto|coo|cfo|founder|owner|md|chairman|president|head)\b",
+    r"\bwhat is (the\s+)?stock price\b",
+    r"\bcurrent (ceo|stock|share price|news|valuation)\b",
+    r"\bheadquarters (of|for)\b",
+    r"\bwhen was .{1,40} founded\b",
+    r"\bwork.?from.?home policy\b",
+    r"\blatest news\b",
+    r"\bmarket cap(italization)?\b",
+    r"\bannual revenue\b",
+    r"\brecent (layoff|hiring|funding|acquisition)\b",
+    r"\bstock (price|market|exchange)\b",
+    r"\bshare price\b",
+    r"\bcompany news\b",
+    r"\bwho (runs|leads|heads|owns|founded)\b",
+    r"\bremote work policy\b",
+    r"\boffice location\b",
+    r"\bnumber of employees\b",
+    r"\bhow many employees\b",
+    r"\bceo\b",
+    r"\bcto\b",
+    r"\bcfo\b",
+    r"\bfounder\b",
+    r"\bstock price\b",
+    r"\bshare price\b",
+    r"\bheadquarters\b",
+    r"\bwork from home\b",
+    r"\bwfh policy\b",
+    r"\bemployee count\b",
+    r"\bcompany history\b",
+    r"\bfounded in\b",
+    r"\bfounded by\b",
+    r"\bowned by\b",
+    r"\bled by\b",
+    r"\bmanaged by\b",
+
+]
+
 
 # ── Main classifier ───────────────────────────────────────────────────────
 
@@ -105,33 +157,12 @@ def classify_query(query: str) -> dict[str, Any]:
         "section_hint":     None,
     }
 
-    # ── Out-of-corpus detection ────────────────────────────────────────
-    for pattern in OUT_OF_CORPUS_PATTERNS:
-        if pattern.lower() in q:
-            result["is_out_of_corpus"] = True
-            result["query_type"]       = "out_of_corpus"
-            result["fallback_reason"]  = (
-                f"This information is not available in the placement dataset "
-                f"(matched out-of-corpus pattern: '{pattern}')."
-            )
-            logger.info(f"Query classified as out-of-corpus: {query[:60]}")
-            return result
-
-    # ── CGPA too low ───────────────────────────────────────────────────
+    # ── Extract params first (needed for all paths) ────────────────────
     cgpa_match = _CGPA_RE.search(query)
     if cgpa_match:
         cgpa = float(cgpa_match.group(1))
         result["params"]["cgpa"] = cgpa
-        if cgpa < 6.1:
-            result["is_out_of_corpus"] = True
-            result["query_type"]       = "out_of_corpus"
-            result["fallback_reason"]  = (
-                f"No company in this dataset has a CGPA cutoff ≤ {cgpa}. "
-                f"The lowest cutoff is 6.1 (Microsoft)."
-            )
-            return result
 
-    # ── Extract other params ───────────────────────────────────────────
     backlog_match = _BKLOG_RE.search(query)
     if backlog_match:
         result["params"]["backlogs"] = int(backlog_match.group(1))
@@ -147,6 +178,46 @@ def classify_query(query: str) -> dict[str, Any]:
     tech_match = _TECH_RE.search(query)
     if tech_match:
         result["params"]["tech_focus"] = tech_match.group(1)
+
+    # ── NEW: Student eligibility check (routes to mysql_tool) ─────────
+    # Triggered by roll number OR first-person eligibility keywords
+    if _ROLL_RE.search(query) or any(kw in q for kw in _STUDENT_ELIGIBILITY_KEYWORDS):
+        result["query_type"] = "student_eligibility"
+        logger.info(f"Query classified as student_eligibility: {query[:60]}")
+        return result
+
+    # ── NEW: Web search for external/live information ──────────────────
+    # Triggered by questions about CEOs, stock prices, news, etc.
+    if any(re.search(p, q) for p in _WEB_SEARCH_PATTERNS):
+        result["query_type"] = "web_search"
+        logger.info(f"Query classified as web_search: {query[:60]}")
+        return result
+
+    # ── Out-of-corpus detection ────────────────────────────────────────
+    # Note: stock_price is now handled by web_search above, so this
+    # only catches truly unanswerable queries
+    for pattern in OUT_OF_CORPUS_PATTERNS:
+        if pattern.lower() in q:
+            result["is_out_of_corpus"] = True
+            result["query_type"]       = "out_of_corpus"
+            result["fallback_reason"]  = (
+                f"This information is not available in the placement dataset "
+                f"(matched out-of-corpus pattern: '{pattern}')."
+            )
+            logger.info(f"Query classified as out-of-corpus: {query[:60]}")
+            return result
+
+    # ── CGPA too low for any company ──────────────────────────────────
+    if "cgpa" in result["params"]:
+        cgpa = result["params"]["cgpa"]
+        if cgpa < 6.1:
+            result["is_out_of_corpus"] = True
+            result["query_type"]       = "out_of_corpus"
+            result["fallback_reason"]  = (
+                f"No company in this dataset has a CGPA cutoff ≤ {cgpa}. "
+                f"The lowest cutoff is 6.1 (Microsoft)."
+            )
+            return result
 
     # ── Conflict queries ───────────────────────────────────────────────
     if any(kw in q for kw in _CONFLICT_KEYWORDS):
