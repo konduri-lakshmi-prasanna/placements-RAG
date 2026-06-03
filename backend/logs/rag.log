@@ -292,3 +292,40 @@
 2026-06-02 15:01:45.831 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'ceo of amazon' (best=0.765) — possible OOC
 2026-06-02 15:01:45.833 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Amazon — CGPA cutoff: official=6.4 vs portal=7.0, Package (LPA): official=28.6 vs portal=32.0
 2026-06-02 15:18:41.922 | INFO     | main:lifespan:79 - Shutting down.
+2026-06-03 15:11:54.429 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-03 15:11:54.431 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 15:11:55.295 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 15:11:55.296 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-03 15:11:55.297 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-03 15:11:55.297 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:11:55.297 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:11:55.297 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:11:55.299 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:11:55.299 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-03 15:11:55.299 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-03 15:11:55.299 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-03 15:11:55.550 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-03 15:11:55.713 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-03 15:11:56.965 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-03 15:12:10.065 | INFO     | agent.prompt_router:classify_query:233 - Query classified as temporal: Which company's package grew the most from 2021 to 2024?
+2026-06-03 15:12:10.065 | INFO     | main:query:125 - Query: 'Which company's package grew the most from 2021 to 2024?' → type=temporal
+2026-06-03 15:12:12.384 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=temporal, chunks=5, confidence=0.74, lookback=0.19, conflicts=0
+2026-06-03 15:13:40.183 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={'company': 'Google'}
+2026-06-03 15:13:40.184 | INFO     | main:query:125 - Query: 'What is the salary of a software engineer at Google in USA?' → type=general
+2026-06-03 15:13:40.529 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.7, lookback=0.4, conflicts=0
+2026-06-03 15:13:59.720 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=threshold_filter, section=eligibility, params={'company': 'TCS'}
+2026-06-03 15:13:59.721 | INFO     | main:query:125 - Query: 'What is TCS's minimum CGPA requirement?' → type=threshold_filter
+2026-06-03 15:13:59.756 | INFO     | agent.rag_chain:answer:260 - Using self-consistency (n=3) for type=threshold_filter
+2026-06-03 15:14:00.733 | INFO     | agent.rag_chain:self_consistent_answer:154 - Self-consistency: 3 calls, 1 unique answers, using most common
+2026-06-03 15:14:00.735 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=threshold_filter, chunks=5, confidence=0.83, lookback=0.67, conflicts=0
+2026-06-03 15:14:20.046 | INFO     | agent.prompt_router:classify_query:186 - Query classified as student_eligibility: I have CGPA 7.2 and 0 backlogs, which companies can I apply 
+2026-06-03 15:14:20.047 | INFO     | main:query:125 - Query: 'I have CGPA 7.2 and 0 backlogs, which companies can I apply to?' → type=student_eligibility
+2026-06-03 15:14:39.213 | INFO     | agent.prompt_router:classify_query:233 - Query classified as temporal: Which company is best for my future career growth?
+2026-06-03 15:14:39.214 | INFO     | main:query:125 - Query: 'Which company is best for my future career growth?' → type=temporal
+2026-06-03 15:14:39.273 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'Which company is best for my future career growth?' (best=0.811) — possible OOC
+2026-06-03 15:14:40.250 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=temporal, chunks=5, confidence=0.59, lookback=0.13, conflicts=0
+2026-06-03 15:14:56.161 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: who is the ceo of infosys
+2026-06-03 15:14:56.161 | INFO     | main:query:125 - Query: 'who is the ceo of infosys' → type=web_search
+2026-06-03 15:15:22.583 | INFO     | agent.prompt_router:classify_query:186 - Query classified as student_eligibility: is roll no 21A91A0501 eligible for tcs
+2026-06-03 15:15:22.583 | INFO     | main:query:125 - Query: 'is roll no 21A91A0501 eligible for tcs' → type=student_eligibility
+2026-06-03 15:20:24.029 | INFO     | main:lifespan:72 - Shutting down.

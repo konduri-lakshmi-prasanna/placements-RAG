@@ -1,13 +1,14 @@
 """
-tool_agent.py — LangChain agent with tools using Groq (free, fast).
+tool_agent.py — LangChain agent with multi-tool handling using Groq.
 
 Handles:
-  - Web search for external questions (CEO names, stock prices, company news)
-  - Student eligibility check via MySQL database
-  - Package-to-CGPA ratio computation
-  - Package increase calculation
-  - Out-of-corpus boundary explanations
-  - Any query needing arithmetic over retrieved data
+  - Web search for external questions (CEO, stock prices, news)
+  - MySQL database for student eligibility checks
+  - Calculator for arithmetic
+  - Corpus boundary check for out-of-scope queries
+  - MULTI-TOOL: can call multiple tools in a single query
+    e.g. "Is roll 21A91A0501 eligible for TCS and who is the CEO?"
+         → calls mysql_tool AND web_search_tool, combines both answers
 """
 
 from __future__ import annotations
@@ -21,54 +22,49 @@ from agent.tools import ALL_TOOLS
 from config import GROQ_API_KEY, LLM_MODEL
 
 
-AGENT_SYSTEM = """You are PlacementIQ, a smart placement intelligence assistant.
+AGENT_SYSTEM = """You are PlacementIQ, a smart placement intelligence assistant for SVECW students.
 
-You have access to these tools — always use the right one:
+You have access to these tools — use AS MANY AS NEEDED for a single query:
 
 1. calculator
-   → Use for any arithmetic: ratios, percentages, package differences, comparisons.
-   → Example: "What is the package-to-CGPA ratio for TCS?" → use calculator
+   → Use for any arithmetic: ratios, percentages, package differences.
 
 2. corpus_boundary_check
    → Use when a query is completely outside the placement dataset scope.
-   → Example: "Which career is best for me?" → use corpus_boundary_check
 
 3. package_cgpa_ratio
-   → Use specifically to compute the package divided by CGPA ratio.
+   → Use specifically to compute package divided by CGPA ratio.
 
 4. web_search
-   → Use for ANY question about real-world, live, or external information that
-     is NOT inside the placement PDF dataset.
-   → Examples of when to use web_search:
-       - "Who is the CEO of TCS?" → web_search("CEO of TCS")
-       - "What is Infosys stock price?" → web_search("Infosys stock price today")
-       - "Where is Google headquarters?" → web_search("Google headquarters location")
-       - "When was Amazon founded?" → web_search("When was Amazon founded")
-       - "What is TCS's work from home policy?" → web_search("TCS work from home policy 2024")
-       - "How many employees does Wipro have?" → web_search("Wipro number of employees")
-   → ALWAYS use web_search for CEO, stock price, news, headquarters, founding year,
-     employee count, remote work policy, recent events — do NOT guess from memory.
+   → Use for ANY real-world/live information NOT in the placement PDF:
+     CEO names, stock prices, news, headquarters, founding year,
+     employee count, remote work policy, recent events.
+   → ALWAYS use web_search — NEVER guess from memory.
 
 5. mysql_placement_db
-   → Use for student-specific eligibility checks and college placement statistics
-     from the college's own database records.
-   → Examples of when to use mysql_placement_db:
-       - "Is roll no 21A91A0501 eligible for TCS?" → mysql_placement_db
-       - "Am I eligible for Amazon with CGPA 7.5?" → mysql_placement_db
-       - "How many students were placed in 2024?" → mysql_placement_db
-       - "Which companies visited our campus?" → mysql_placement_db
-   → This tool queries the live college database — use it for student-specific queries.
+   → Use for student-specific eligibility and college placement statistics:
+     roll numbers, CGPA-based eligibility, campus placement records.
 
-Decision rules:
-- Question about a real person's role/title → web_search (not memory)
-- Question about live data (stock, price, news) → web_search
-- Question with a roll number → mysql_placement_db
-- Question starting with "Am I eligible" or "Can I apply" → mysql_placement_db
-- Question about campus statistics or placement count → mysql_placement_db
-- Math calculation needed → calculator
-- Query completely outside placement scope → corpus_boundary_check
+MULTI-TOOL INSTRUCTIONS — VERY IMPORTANT:
+- If a query has MULTIPLE parts, use MULTIPLE tools — one for each part.
+- DO NOT stop after the first tool. Check if other parts still need answering.
+- Combine all tool results into ONE clear, structured answer.
 
-Always show your reasoning clearly. If a tool returns no result, say so honestly.
+Examples of multi-tool queries:
+  "Is roll 21A91A0501 eligible for TCS and who is the CEO?"
+  → Step 1: mysql_placement_db → eligibility result
+  → Step 2: web_search("CEO of TCS 2024") → CEO name
+  → Combine both into one answer
+
+  "What is TCS package in our college and their stock price today?"
+  → Step 1: mysql_placement_db → campus package
+  → Step 2: web_search("TCS stock price today") → live price
+  → Combine both
+
+STRICT RULES:
+1. NEVER guess or answer from memory — always use a tool.
+2. Always show which tool gave which part of the answer.
+3. If a tool returns no result, try another approach.
 """
 
 _agent_prompt = ChatPromptTemplate.from_messages([
@@ -79,39 +75,45 @@ _agent_prompt = ChatPromptTemplate.from_messages([
 
 
 class ToolAgent:
-    """LangChain agent with web search, MySQL, arithmetic + corpus tools powered by Groq."""
+    """LangChain agent that calls multiple tools in a single query."""
 
     def __init__(self) -> None:
         llm = ChatGroq(
             model=LLM_MODEL,
             api_key=GROQ_API_KEY,
-            max_tokens=512,
+            max_tokens=1024,
             temperature=0.0,
         )
         agent = create_tool_calling_agent(llm, ALL_TOOLS, _agent_prompt)
         self._executor = AgentExecutor(
             agent=agent,
             tools=ALL_TOOLS,
-            verbose=False,
-            max_iterations=5,
+            verbose=True,
+            max_iterations=8,
             handle_parsing_errors=True,
+            return_intermediate_steps=True,
         )
 
     def run(self, query: str, context: str = "") -> str:
-        """
-        Run the agent on a query.
-        Context from PDF corpus is injected if available (may be empty for web queries).
-        """
         full_input = query
         if context and context.strip():
             full_input = (
-                f"Context from placement PDF dataset (may or may not be relevant):\n"
-                f"{context}\n\n"
-                f"User Question: {query}"
+                f"Context from placement PDF dataset:\n{context}\n\n"
+                f"User Question: {query}\n\n"
+                f"If the question has multiple parts, use multiple tools."
             )
         try:
-            result = self._executor.invoke({"input": full_input})
-            return result.get("output", "No answer generated.")
+            result     = self._executor.invoke({"input": full_input})
+            answer     = result.get("output", "No answer generated.")
+            steps      = result.get("intermediate_steps", [])
+
+            if steps:
+                tools_used = [step[0].tool for step in steps]
+                logger.info(f"Tools used: {tools_used} for: '{query[:50]}'")
+                if len(set(tools_used)) > 1:
+                    answer += f"\n\n---\n🔧 Tools used: {', '.join(set(tools_used))}"
+
+            return answer
         except Exception as e:
             logger.error(f"ToolAgent error: {e}")
             return f"Tool agent encountered an error: {e}"
