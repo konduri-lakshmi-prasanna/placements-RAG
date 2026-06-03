@@ -329,3 +329,145 @@
 2026-06-03 15:15:22.583 | INFO     | agent.prompt_router:classify_query:186 - Query classified as student_eligibility: is roll no 21A91A0501 eligible for tcs
 2026-06-03 15:15:22.583 | INFO     | main:query:125 - Query: 'is roll no 21A91A0501 eligible for tcs' → type=student_eligibility
 2026-06-03 15:20:24.029 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-03 15:23:01.739 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-03 15:23:01.740 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 15:23:02.556 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 15:23:02.556 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-03 15:23:02.557 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-03 15:23:02.557 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:23:02.557 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:23:02.557 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:23:02.558 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 15:23:02.558 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-03 15:23:02.558 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-03 15:23:02.558 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-03 15:23:02.560 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-03 15:23:02.655 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-03 15:23:03.687 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-03 15:23:47.378 | INFO     | agent.prompt_router:classify_query:186 - Query classified as student_eligibility: Is roll no 21A91A0501 eligible for TCS and who is the CEO?
+2026-06-03 15:23:47.379 | INFO     | main:query:125 - Query: 'Is roll no 21A91A0501 eligible for TCS and who is the CEO?' → type=student_eligibility
+2026-06-03 15:23:50.922 | INFO     | agent.tool_agent:run:112 - Tools used: ['mysql_placement_db', 'web_search', 'calculator'] for: 'Is roll no 21A91A0501 eligible for TCS and who is '
+2026-06-03 15:24:20.423 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: What is TCS package in our college and what is their stock p
+2026-06-03 15:24:20.423 | INFO     | main:query:125 - Query: 'What is TCS package in our college and what is their stock price today?' → type=web_search
+2026-06-03 15:24:24.959 | INFO     | agent.tool_agent:run:112 - Tools used: ['mysql_placement_db', 'web_search'] for: 'What is TCS package in our college and what is the'
+2026-06-03 15:24:45.433 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: CEO of Google
+2026-06-03 15:24:45.434 | INFO     | main:query:125 - Query: 'CEO of Google' → type=web_search
+2026-06-03 15:24:45.456 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'CEO of Google' (best=0.674) — possible OOC
+2026-06-03 15:24:45.868 | ERROR    | agent.tool_agent:run:118 - ToolAgent error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=web_search {"query": "CEO of Google"} </function>'}}
+2026-06-03 15:24:58.408 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: who is the CEO of Google
+2026-06-03 15:24:58.408 | INFO     | main:query:125 - Query: 'who is the CEO of Google' → type=web_search
+2026-06-03 15:25:00.886 | INFO     | agent.tool_agent:run:112 - Tools used: ['web_search'] for: 'who is the CEO of Google'
+2026-06-03 15:25:10.246 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=threshold_filter, section=eligibility, params={}
+2026-06-03 15:25:10.246 | INFO     | main:query:125 - Query: 'can a student with two backlogs apply' → type=threshold_filter
+2026-06-03 15:25:10.312 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'can a student with two backlogs apply' (best=0.721) — possible OOC
+2026-06-03 15:25:10.312 | INFO     | agent.rag_chain:answer:260 - Using self-consistency (n=3) for type=threshold_filter
+2026-06-03 15:25:12.726 | INFO     | agent.rag_chain:self_consistent_answer:154 - Self-consistency: 3 calls, 3 unique answers, using most common
+2026-06-03 15:25:12.727 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=threshold_filter, chunks=5, confidence=0.63, lookback=0.25, conflicts=0
+2026-06-03 15:25:21.361 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={}
+2026-06-03 15:25:21.362 | INFO     | main:query:125 - Query: 'Telugu Achcha' → type=general
+2026-06-03 15:25:21.435 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'Telugu Achcha' (best=0.749) — possible OOC
+2026-06-03 15:25:21.436 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: TCS — CGPA cutoff: official=7.5 vs portal=7.0, Package (LPA): official=4.1 vs portal=4.5
+2026-06-03 15:25:22.044 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.62, lookback=0.0, conflicts=1
+2026-06-03 15:25:31.175 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: TCS founder Evaru
+2026-06-03 15:25:31.176 | INFO     | main:query:125 - Query: 'TCS founder Evaru' → type=web_search
+2026-06-03 15:25:31.249 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'TCS founder Evaru' (best=0.706) — possible OOC
+2026-06-03 15:25:32.198 | ERROR    | agent.tool_agent:run:118 - ToolAgent error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=web_search{"query": "TCS founder"}</function>'}}
+2026-06-03 15:25:44.965 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={}
+2026-06-03 15:25:44.966 | INFO     | main:query:125 - Query: 'టిసిఎస్ ఫౌండర్ ఎవరు' → type=general
+2026-06-03 15:25:44.994 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'టిసిఎస్ ఫౌండర్ ఎవరు' (best=0.922) — possible OOC
+2026-06-03 15:25:45.393 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.54, lookback=0.0, conflicts=0
+2026-06-03 15:26:00.172 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={'company': 'google'}
+2026-06-03 15:26:00.173 | INFO     | main:query:125 - Query: 'google సీఈఓ ఎవరు' → type=general
+2026-06-03 15:26:00.245 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'google సీఈఓ ఎవరు' (best=0.762) — possible OOC
+2026-06-03 15:26:00.579 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.61, lookback=0.4, conflicts=0
+2026-06-03 15:26:20.424 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={}
+2026-06-03 15:26:20.425 | INFO     | main:query:125 - Query: 'कैसियो कौन है' → type=general
+2026-06-03 15:26:20.470 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'कैसियो कौन है' (best=0.859) — possible OOC
+2026-06-03 15:26:20.959 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.56, lookback=0.0, conflicts=0
+2026-06-03 15:26:29.070 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={}
+2026-06-03 15:26:29.071 | INFO     | main:query:125 - Query: 'गूगल का' → type=general
+2026-06-03 15:26:29.135 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'गूगल का' (best=0.780) — possible OOC
+2026-06-03 15:26:29.864 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.58, lookback=0.67, conflicts=0
+2026-06-03 15:26:40.170 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={'company': 'TCS'}
+2026-06-03 15:26:40.170 | INFO     | main:query:125 - Query: 'TCS' → type=general
+2026-06-03 15:26:41.005 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.73, lookback=0.48, conflicts=0
+2026-06-03 15:26:46.321 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: founder of
+2026-06-03 15:26:46.322 | INFO     | main:query:125 - Query: 'founder of' → type=web_search
+2026-06-03 15:26:46.342 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'founder of' (best=0.947) — possible OOC
+2026-06-03 15:26:46.800 | ERROR    | agent.tool_agent:run:118 - ToolAgent error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=corpus_boundary_check{"query":"founder of"}</function>\n'}}
+2026-06-03 15:26:55.852 | INFO     | agent.prompt_router:classify_query:268 - Query classified: type=general, section=None, params={'company': 'TCS'}
+2026-06-03 15:26:55.852 | INFO     | main:query:125 - Query: 'turn off TCS' → type=general
+2026-06-03 15:26:55.878 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: TCS — CGPA cutoff: official=7.5 vs portal=7.0, Package (LPA): official=4.1 vs portal=4.5
+2026-06-03 15:26:56.284 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=general, chunks=5, confidence=0.68, lookback=0.1, conflicts=1
+2026-06-03 15:27:00.681 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: founder of
+2026-06-03 15:27:00.681 | INFO     | main:query:125 - Query: 'founder of' → type=web_search
+2026-06-03 15:27:00.717 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'founder of' (best=0.947) — possible OOC
+2026-06-03 15:27:01.337 | ERROR    | agent.tool_agent:run:118 - ToolAgent error: Error code: 400 - {'error': {'message': "Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=corpus_boundary_check{"query":"founder of"}</function>\n'}}
+2026-06-03 15:27:06.287 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: founder of TCS
+2026-06-03 15:27:06.287 | INFO     | main:query:125 - Query: 'founder of TCS' → type=web_search
+2026-06-03 15:27:17.142 | INFO     | agent.tool_agent:run:112 - Tools used: ['web_search', 'web_search'] for: 'founder of TCS'
+2026-06-03 15:30:03.850 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-03 21:45:19.611 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-03 21:45:19.612 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:45:20.665 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:45:20.666 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-03 21:45:20.667 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-03 21:45:20.668 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:45:20.668 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:45:20.668 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:45:20.669 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:45:20.669 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-03 21:45:20.671 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-03 21:45:20.671 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-03 21:45:20.676 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-03 21:45:20.702 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-03 21:45:22.533 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-03 21:47:22.335 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-03 21:47:47.364 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-03 21:47:47.366 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:47:48.509 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:47:48.510 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-03 21:47:48.511 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-03 21:47:48.512 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:47:48.512 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:47:48.513 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:47:48.514 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:47:48.514 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-03 21:47:48.515 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-03 21:47:48.517 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-03 21:47:48.520 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-03 21:47:48.542 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-03 21:47:50.456 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-03 21:50:35.365 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-03 21:50:58.111 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-03 21:50:58.112 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:50:59.142 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:50:59.144 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-03 21:50:59.145 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-03 21:50:59.145 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:50:59.146 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:50:59.146 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:50:59.147 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:50:59.148 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-03 21:50:59.149 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-03 21:50:59.149 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-03 21:50:59.151 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-03 21:50:59.174 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-03 21:51:00.827 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-03 21:56:34.451 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-03 21:57:22.170 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-03 21:57:22.173 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:57:23.794 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-03 21:57:23.795 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-03 21:57:23.796 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-03 21:57:23.797 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:57:23.797 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:57:23.798 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:57:23.798 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-03 21:57:23.798 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-03 21:57:23.799 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-03 21:57:23.800 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-03 21:57:23.803 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-03 21:57:23.834 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-03 21:57:25.734 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-03 22:05:10.531 | INFO     | main:lifespan:72 - Shutting down.

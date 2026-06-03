@@ -252,8 +252,12 @@ export default function ChatPanel() {
             className="flex-1 bg-transparent text-base text-zinc-100 placeholder-zinc-500 outline-none px-2"
           />
 
-          {/* Voice search */}
-          <VoiceSearch onTranscript={handleVoiceTranscript} disabled={loading} />
+          {/* ✅ FIX: apiKey prop added here */}
+          <VoiceSearch
+            apiKey={import.meta.env.VITE_GROQ_API_KEY}
+            onTranscript={handleVoiceTranscript}
+            disabled={loading}
+          />
 
           {/* Send button */}
           <button onClick={send}
