@@ -253,3 +253,42 @@
 2026-06-01 23:01:32.036 | INFO     | main:query:129 - Incoming query: 'CEO OF GOOGLE' → type=web_search
 2026-06-01 23:01:32.058 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'CEO OF GOOGLE' (best=0.674) — possible OOC
 2026-06-01 23:02:15.560 | INFO     | main:lifespan:79 - Shutting down.
+2026-06-02 14:53:43.567 | INFO     | main:lifespan:60 - Starting PlacementIQ RAG system...
+2026-06-02 14:53:43.570 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-02 14:53:47.406 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-02 14:53:47.413 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-02 14:53:47.415 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-02 14:53:47.417 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 14:53:47.420 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 14:53:47.421 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 14:53:47.422 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 14:53:47.427 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-02 14:53:47.430 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-02 14:53:47.432 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-02 14:53:47.446 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-02 14:53:47.508 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-02 14:53:53.682 | SUCCESS  | main:lifespan:77 - PlacementIQ ready. Vector store: 92 chunks.
+2026-06-02 14:58:26.981 | INFO     | main:lifespan:79 - Shutting down.
+2026-06-02 15:01:14.300 | INFO     | main:lifespan:60 - Starting PlacementIQ RAG system...
+2026-06-02 15:01:14.303 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-02 15:01:15.374 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-02 15:01:15.375 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-02 15:01:15.375 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-02 15:01:15.376 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 15:01:15.377 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 15:01:15.377 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 15:01:15.377 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-02 15:01:15.377 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-02 15:01:15.379 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-02 15:01:15.379 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-02 15:01:15.382 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-02 15:01:15.398 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-02 15:01:17.176 | SUCCESS  | main:lifespan:77 - PlacementIQ ready. Vector store: 92 chunks.
+2026-06-02 15:01:33.290 | INFO     | agent.prompt_router:classify_query:233 - Query classified as temporal: Which company's package grew the most from 2021 to 2024?
+2026-06-02 15:01:33.292 | INFO     | main:query:129 - Incoming query: 'Which company's package grew the most from 2021 to 2024?' → type=temporal
+2026-06-02 15:01:35.521 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=temporal, chunks=5, confidence=0.74, lookback=0.14, conflicts=0
+2026-06-02 15:01:45.742 | INFO     | agent.prompt_router:classify_query:193 - Query classified as web_search: ceo of amazon
+2026-06-02 15:01:45.744 | INFO     | main:query:129 - Incoming query: 'ceo of amazon' → type=web_search
+2026-06-02 15:01:45.831 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'ceo of amazon' (best=0.765) — possible OOC
+2026-06-02 15:01:45.833 | WARNING  | retrieval.conflict_detector:detect_conflicts:113 - Conflict detected: Amazon — CGPA cutoff: official=6.4 vs portal=7.0, Package (LPA): official=28.6 vs portal=32.0
+2026-06-02 15:18:41.922 | INFO     | main:lifespan:79 - Shutting down.

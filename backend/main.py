@@ -8,19 +8,17 @@ Endpoints:
   POST /eval           — run full evaluation suite
   GET  /health         — health check
 
-Query routing logic:
-  web_search          → ToolAgent (uses web_search_tool)
-  student_eligibility → ToolAgent (uses mysql_tool)
-  computed            → ToolAgent (uses calculator_tool)
-  out_of_corpus       → friendly fallback message
-  everything else     → normal RAG chain (PDF corpus)
+Query routing:
+  web_search          → ToolAgent (web_search_tool)
+  student_eligibility → ToolAgent (mysql_tool)
+  computed            → ToolAgent (calculator_tool)
+  out_of_corpus       → friendly fallback
+  everything else     → RAGChain (PDF corpus) with hallucination checks
 """
 
 from __future__ import annotations
 
-import os
 from contextlib import asynccontextmanager
-from pathlib import Path
 from typing import Optional
 
 import uvicorn
@@ -41,48 +39,43 @@ from retrieval.retriever import Retriever
 from retrieval.vector_store import VectorStore
 
 
-# ── Logging setup ─────────────────────────────────────────────────────────
+# ── Logging ───────────────────────────────────────────────────────────────
 logger.add(LOG_FILE, level=LOG_LEVEL, rotation="10 MB", retention="7 days")
 
-
-# ── App state (singletons) ────────────────────────────────────────────────
+# ── Singletons ────────────────────────────────────────────────────────────
 vs         = VectorStore()
-retriever: Optional[Retriever]  = None
-rag_chain: Optional[RAGChain]   = None
-tool_agent: Optional[ToolAgent] = None
+retriever:  Optional[Retriever]  = None
+rag_chain:  Optional[RAGChain]   = None
+tool_agent: Optional[ToolAgent]  = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: ingest PDF and build vector store."""
     global retriever, rag_chain, tool_agent
-
     logger.info("Starting PlacementIQ RAG system...")
 
-    # ── Build or load vector store ────────────────────────────────────
-    if not PDF_PATH.exists():
-        logger.warning(
-            f"PDF not found at {PDF_PATH}. "
-            "Place the dataset PDF in backend/data/ and restart."
-        )
-    else:
+    if vs.count > 0:
+        logger.success(f"Vector store already loaded: {vs.count} chunks.")
+    elif PDF_PATH.exists():
         pages = parse_pdf(PDF_PATH)
         docs  = chunk_pages(pages)
         vs.build(docs)
+    else:
+        logger.warning("No PDF and no vector store found!")
 
     retriever  = Retriever(vs)
     rag_chain  = RAGChain()
     tool_agent = ToolAgent()
 
-    logger.success(f"PlacementIQ ready. Vector store: {vs.count} chunks.")
+    logger.success(f"PlacementIQ ready. Chunks: {vs.count}")
     yield
     logger.info("Shutting down.")
 
 
 app = FastAPI(
     title="PlacementIQ RAG API",
-    description="Placement Intelligence Retrieval-Augmented Generation System",
-    version="1.0.0",
+    description="Placement Intelligence RAG System with Hallucination Mitigation",
+    version="2.0.0",
     lifespan=lifespan,
 )
 
@@ -94,21 +87,24 @@ app.add_middleware(
 )
 
 
-# ── Request / Response schemas ────────────────────────────────────────────
+# ── Schemas ───────────────────────────────────────────────────────────────
 
 class QueryRequest(BaseModel):
-    question: str
-    use_agent: bool = False   # True → force ToolAgent regardless of query type
+    question:  str
+    use_agent: bool = False
 
 
 class QueryResponse(BaseModel):
-    answer:           str
-    query_type:       str
-    sources:          list[dict]
-    conflict_warning: Optional[str]
-    multihop_steps:   list[str]
-    is_out_of_corpus: bool
-    is_conflict:      bool
+    answer:                str
+    query_type:            str
+    sources:               list[dict]
+    conflict_warning:      Optional[str]
+    multihop_steps:        list[str]
+    is_out_of_corpus:      bool
+    is_conflict:           bool
+    confidence:            float         # 0.0–1.0
+    lookback_ratio:        float         # 0.0–1.0
+    hallucination_warning: Optional[str]
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────
@@ -126,26 +122,16 @@ async def query(req: QueryRequest):
     classified = classify_query(req.question)
     query_type = classified.get("query_type")
 
-    logger.info(f"Incoming query: '{req.question[:80]}' → type={query_type}")
+    logger.info(f"Query: '{req.question[:80]}' → type={query_type}")
 
-    # ── Decide routing ─────────────────────────────────────────────────
-    #
-    # ToolAgent handles:
-    #   1. web_search       — CEO names, stock prices, company news, etc.
-    #   2. student_eligibility — roll-no / "am I eligible" → MySQL DB
-    #   3. computed         — arithmetic over retrieved data
-    #   4. use_agent=True   — manually forced by frontend
-    #
     USE_TOOL_AGENT = (
         req.use_agent
         or query_type == "computed"
-        or query_type == "web_search"           # NEW: live web lookup
-        or query_type == "student_eligibility"  # NEW: MySQL DB lookup
+        or query_type == "web_search"
+        or query_type == "student_eligibility"
     )
 
     if USE_TOOL_AGENT:
-        # Try to retrieve any related PDF context (may be empty for web queries,
-        # but useful for hybrid questions like "Is TCS eligible for me? Also who is CEO?")
         try:
             retrieval = retriever.retrieve(req.question, classified)
             context   = "\n".join(c.text for c in retrieval.chunks)
@@ -154,16 +140,17 @@ async def query(req: QueryRequest):
 
         raw_answer = tool_agent.run(req.question, context)
         llm_out = {
-            "answer":           raw_answer,
-            "query_type":       query_type,
-            "sources":          [],
-            "conflict_warning": None,
-            "multihop_steps":   [],
+            "answer":                raw_answer,
+            "query_type":            query_type,
+            "sources":               [],
+            "conflict_warning":      None,
+            "multihop_steps":        [],
+            "confidence":            1.0,   # tool answers are fetched live
+            "lookback_ratio":        1.0,
+            "hallucination_warning": None,
         }
 
-    # ── Out-of-corpus: no tool match, no PDF match ─────────────────────
     elif classified.get("is_out_of_corpus"):
-        logger.info(f"Out-of-corpus query: {req.question[:60]}")
         llm_out = {
             "answer": (
                 "I couldn't find this information in the placement dataset. "
@@ -171,18 +158,19 @@ async def query(req: QueryRequest):
                 "• Company eligibility criteria (CGPA, backlogs, branches)\n"
                 "• Package and salary information\n"
                 "• Interview rounds and preparation tips\n"
-                "• Placement trends and statistics\n"
-                "• CEO names, stock prices, and company news (just ask naturally!)\n"
+                "• CEO names, stock prices, news (just ask naturally!)\n"
                 "• Student eligibility checks (share your roll number or CGPA)\n\n"
                 f"Reason: {classified.get('fallback_reason', 'Query outside dataset scope.')}"
             ),
-            "query_type":       "out_of_corpus",
-            "sources":          [],
-            "conflict_warning": None,
-            "multihop_steps":   [],
+            "query_type":            "out_of_corpus",
+            "sources":               [],
+            "conflict_warning":      None,
+            "multihop_steps":        [],
+            "confidence":            0.0,
+            "lookback_ratio":        0.0,
+            "hallucination_warning": None,
         }
 
-    # ── Normal RAG flow (PDF corpus) ───────────────────────────────────
     else:
         retrieval = retriever.retrieve(req.question, classified)
         llm_out   = rag_chain.answer(req.question, retrieval)
@@ -193,14 +181,12 @@ async def query(req: QueryRequest):
 
 @app.get("/companies")
 async def list_companies():
-    """Return all companies with their eligibility data."""
     if retriever is None:
         raise HTTPException(503, "Not ready")
-
-    chunks = vs.query_section("company eligibility", section="eligibility", top_k=30)
+    chunks    = vs.query_section("company eligibility", section="eligibility", top_k=30)
     companies = {}
     for chunk in chunks:
-        m = chunk.metadata
+        m       = chunk.metadata
         company = m.get("company", "")
         if company and company not in companies:
             companies[company] = {
@@ -218,7 +204,7 @@ async def list_companies():
 async def stats():
     return {
         "chunk_count":  vs.count,
-        "model":        LLM_MODEL if hasattr(LLM_MODEL, '__str__') else "llama-3.3-70b-versatile",
+        "model":        "llama-3.3-70b-versatile",
         "embed_model":  "all-MiniLM-L6-v2",
         "vector_store": "ChromaDB",
     }
@@ -233,9 +219,4 @@ async def run_eval():
 
 
 if __name__ == "__main__":
-    uvicorn.run(
-        "main:app",
-        host=API_HOST,
-        port=API_PORT,
-        reload=API_RELOAD,
-    )
+    uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=API_RELOAD)
