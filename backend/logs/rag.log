@@ -737,3 +737,21 @@
 2026-06-07 09:55:44.896 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
 2026-06-07 09:55:44.921 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
 2026-06-07 09:55:47.385 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 09:56:19.315 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 09:56:19.316 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 09:56:20.569 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 09:56:20.570 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 09:56:20.571 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 09:56:20.572 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 09:56:20.572 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 09:56:20.572 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 09:56:20.573 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 09:56:20.573 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 09:56:20.574 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 09:56:20.574 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 09:56:20.577 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 09:56:20.595 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 09:56:22.742 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 09:56:35.723 | INFO     | agent.prompt_router:classify_query:191 - Query classified as web_search: who is the ceo of google
+2026-06-07 09:56:35.725 | INFO     | main:query:125 - Query: 'who is the ceo of google' → type=web_search
+2026-06-07 09:56:41.958 | INFO     | agent.tool_agent:run:115 - Tools used: ['web_search'] for: 'who is the ceo of google'
