@@ -784,3 +784,164 @@
 2026-06-07 17:32:23.026 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
 2026-06-07 17:32:23.062 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
 2026-06-07 17:32:23.240 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:32:26.989 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:36:47.284 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:37:29.795 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:37:29.799 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:37:33.662 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:37:33.663 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:37:33.664 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:37:33.665 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:37:33.665 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:37:33.667 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:37:33.668 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:37:33.669 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:37:33.671 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:37:33.673 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:37:33.678 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:37:33.796 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:37:39.106 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:37:39.220 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:38:15.607 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:38:15.609 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:38:17.373 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:38:17.373 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:38:17.374 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:38:17.374 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:38:17.375 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:38:17.375 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:38:17.375 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:38:17.375 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:38:17.377 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:38:17.377 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:38:17.379 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:38:17.473 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:38:23.070 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:41:43.596 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:42:08.704 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:42:08.705 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:42:10.218 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:42:10.219 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:42:10.219 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:42:10.220 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:42:10.220 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:42:10.220 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:42:10.221 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:42:10.221 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:42:10.222 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:42:10.222 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:42:10.223 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:42:10.302 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:42:13.229 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:42:13.345 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:43:11.745 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:43:11.746 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:43:14.453 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:43:14.454 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:43:14.455 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:43:14.456 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:43:14.457 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:43:14.458 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:43:14.459 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:43:14.460 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:43:14.463 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:43:14.464 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:43:14.469 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:43:14.578 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:43:20.303 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:46:38.839 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:47:29.289 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:47:29.291 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:47:31.178 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:47:31.179 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:47:31.180 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:47:31.181 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:47:31.181 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:47:31.181 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:47:31.181 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:47:31.182 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:47:31.183 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:47:31.183 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:47:31.185 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:47:31.281 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:47:36.493 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:51:56.627 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:52:37.039 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:52:37.039 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:52:38.204 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:52:38.205 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:52:38.206 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:52:38.206 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:52:38.207 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:52:38.207 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:52:38.207 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:52:38.207 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:52:38.207 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:52:38.208 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:52:38.209 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:52:38.267 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:52:40.740 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:52:40.855 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:53:19.218 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:53:19.219 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:53:21.610 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:53:21.612 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:53:21.615 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:53:21.617 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:53:21.617 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:53:21.618 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:53:21.619 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:53:21.622 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:53:21.624 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:53:21.625 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:53:21.633 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:53:21.766 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:53:26.637 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:53:34.482 | INFO     | agent.prompt_router:classify_query:191 - Query classified as web_search: google ceo
+2026-06-07 17:53:34.483 | INFO     | main:query:125 - Query: 'google ceo' → type=web_search
+2026-06-07 17:53:34.759 | WARNING  | retrieval.retriever:retrieve:127 - Low similarity scores for query: 'google ceo' (best=0.670) — possible OOC
+2026-06-07 17:53:39.635 | INFO     | agent.tool_agent:run:110 - Tools used: ['web_search'] for: 'google ceo'
+2026-06-07 17:54:02.039 | INFO     | agent.prompt_router:classify_query:191 - Query classified as web_search: who is the ceo of google and how many backlogs amazon accept
+2026-06-07 17:54:02.039 | INFO     | main:query:125 - Query: 'who is the ceo of google and how many backlogs amazon accepts' → type=web_search
+2026-06-07 17:54:02.457 | ERROR    | agent.tool_agent:run:117 - ToolAgent error for query 'who is the ceo of google and how many backlogs amazon accept': Error code: 400 - {'error': {'message': 'tool call validation failed: attempted to call tool \'web_search {"query": "CEO of Google 2024"}\' which was not in request.tools', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=web_search {"query": "CEO of Google 2024"}></function>\n'}}
+2026-06-07 17:54:13.179 | INFO     | agent.prompt_router:classify_query:266 - Query classified: type=threshold_filter, section=eligibility, params={'backlogs': 2}
+2026-06-07 17:54:13.179 | INFO     | main:query:125 - Query: 'Which companies allow 2 backlogs?' → type=threshold_filter
+2026-06-07 17:54:13.215 | INFO     | agent.rag_chain:answer:260 - Using self-consistency (n=3) for type=threshold_filter
+2026-06-07 17:54:14.142 | INFO     | agent.rag_chain:self_consistent_answer:154 - Self-consistency: 3 calls, 1 unique answers, using most common
+2026-06-07 17:54:14.143 | INFO     | agent.rag_chain:answer:295 - Answer generated: type=threshold_filter, chunks=5, confidence=0.69, lookback=0.71, conflicts=0
+2026-06-07 17:54:29.191 | INFO     | agent.prompt_router:classify_query:191 - Query classified as web_search: who is the ceo of google and Which companies allow 2 backlog
+2026-06-07 17:54:29.191 | INFO     | main:query:125 - Query: 'who is the ceo of google and Which companies allow 2 backlogs?' → type=web_search
+2026-06-07 17:54:29.610 | ERROR    | agent.tool_agent:run:117 - ToolAgent error for query 'who is the ceo of google and Which companies allow 2 backlog': Error code: 400 - {'error': {'message': 'tool call validation failed: attempted to call tool \'web_search {"query": "CEO of Google 2024"}\' which was not in request.tools', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=web_search {"query": "CEO of Google 2024"}></function>\n'}}
+2026-06-07 17:56:54.370 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:58:02.538 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:58:02.539 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:58:06.216 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:58:06.218 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:58:06.219 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:58:06.221 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:58:06.221 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:58:06.222 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:58:06.223 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:58:06.223 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:58:06.226 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:58:06.227 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:58:06.230 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:58:06.340 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:58:10.874 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 17:58:10.979 | INFO     | main:lifespan:72 - Shutting down.
+2026-06-07 17:59:03.891 | INFO     | main:lifespan:55 - Starting PlacementIQ RAG system...
+2026-06-07 17:59:03.892 | INFO     | ingestion.pdf_parser:parse_pdf:50 - Parsing PDF: C:\Users\kondu\OneDrive\Desktop\placement-rag\backend\data\Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:59:06.260 | SUCCESS  | ingestion.pdf_parser:parse_pdf:100 - Parsed 14 pages from Placement_RAG_Dataset_Enhanced.pdf
+2026-06-07 17:59:06.261 | INFO     | ingestion.table_extractor:extract_eligibility:113 - Eligibility: extracted 20 company records
+2026-06-07 17:59:06.261 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 40 (company, year) records
+2026-06-07 17:59:06.262 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:59:06.262 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:59:06.262 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:59:06.263 | INFO     | ingestion.table_extractor:extract_trend:245 - Trend: extracted 0 (company, year) records
+2026-06-07 17:59:06.263 | INFO     | ingestion.table_extractor:extract_conflict:297 - Conflict: extracted 10 conflicting records
+2026-06-07 17:59:06.263 | INFO     | ingestion.table_extractor:extract_statistics:199 - Statistics: extracted 20 records
+2026-06-07 17:59:06.263 | SUCCESS  | ingestion.chunker:chunk_pages:235 - Chunking complete: 92 total chunks (including 0 deduplicated interview chunks)
+2026-06-07 17:59:06.265 | INFO     | retrieval.vector_store:build:63 - Collection 'placement_rag' already exists. Loading.
+2026-06-07 17:59:06.371 | INFO     | retrieval.vector_store:load:100 - Vector store loaded: 92 chunks in 'placement_rag'
+2026-06-07 17:59:10.503 | SUCCESS  | main:lifespan:70 - PlacementIQ ready. Chunks: 92
+2026-06-07 18:02:28.763 | INFO     | main:lifespan:72 - Shutting down.

@@ -1,11 +1,13 @@
 # Environment variables
-backend/.env
 .env
 *.env
+backend/.env
 
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Virtual environments
 venv/
@@ -20,14 +22,25 @@ frontend/node_modules/
 
 # Chroma DB
 chroma_db/
+backend/chroma_db/
 
 # Logs
 *.log
 logs/
+backend/logs/
 
 # Build output
 dist/
 build/
-venv/
-backend/venv/
-__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python packaging
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
