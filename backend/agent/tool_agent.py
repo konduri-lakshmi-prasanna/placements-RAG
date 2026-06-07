@@ -24,6 +24,8 @@ from config import GROQ_API_KEY, LLM_MODEL
 
 AGENT_SYSTEM = """You are PlacementIQ, a smart placement intelligence assistant for SVECW students.
 
+IMPORTANT: When calling tools, always use proper JSON format for arguments. Never use XML-style function tags.
+
 You have access to these tools — use AS MANY AS NEEDED for a single query:
 
 1. calculator
@@ -89,9 +91,10 @@ class ToolAgent:
             agent=agent,
             tools=ALL_TOOLS,
             verbose=True,
-            max_iterations=8,
+            max_iterations=10,
             handle_parsing_errors=True,
             return_intermediate_steps=True,
+            early_stopping_method="generate",
         )
 
     def run(self, query: str, context: str = "") -> str:
@@ -103,9 +106,9 @@ class ToolAgent:
                 f"If the question has multiple parts, use multiple tools."
             )
         try:
-            result     = self._executor.invoke({"input": full_input})
-            answer     = result.get("output", "No answer generated.")
-            steps      = result.get("intermediate_steps", [])
+            result  = self._executor.invoke({"input": full_input})
+            answer  = result.get("output", "No answer generated.")
+            steps   = result.get("intermediate_steps", [])
 
             if steps:
                 tools_used = [step[0].tool for step in steps]
@@ -114,6 +117,8 @@ class ToolAgent:
                     answer += f"\n\n---\n🔧 Tools used: {', '.join(set(tools_used))}"
 
             return answer
+
         except Exception as e:
-            logger.error(f"ToolAgent error: {e}")
-            return f"Tool agent encountered an error: {e}"
+            # Log silently — do NOT expose raw error to the user
+            logger.error(f"ToolAgent error for query '{query[:60]}': {e}")
+            return "Sorry, I had trouble processing that request. Please try rephrasing your question."

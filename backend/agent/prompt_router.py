@@ -94,41 +94,39 @@ _STUDENT_ELIGIBILITY_KEYWORDS = [
 
 # ── NEW: Web search patterns (external/live info) ─────────────────────────
 _WEB_SEARCH_PATTERNS = [
+    # Leadership
     r"\bwho is (the\s+)?(ceo|cto|coo|cfo|founder|owner|md|chairman|president|head)\b",
-    r"\bwhat is (the\s+)?stock price\b",
-    r"\bcurrent (ceo|stock|share price|news|valuation)\b",
-    r"\bheadquarters (of|for)\b",
-    r"\bwhen was .{1,40} founded\b",
-    r"\bwork.?from.?home policy\b",
-    r"\blatest news\b",
-    r"\bmarket cap(italization)?\b",
-    r"\bannual revenue\b",
-    r"\brecent (layoff|hiring|funding|acquisition)\b",
-    r"\bstock (price|market|exchange)\b",
-    r"\bshare price\b",
-    r"\bcompany news\b",
     r"\bwho (runs|leads|heads|owns|founded)\b",
-    r"\bremote work policy\b",
-    r"\boffice location\b",
-    r"\bnumber of employees\b",
-    r"\bhow many employees\b",
     r"\bceo\b",
     r"\bcto\b",
     r"\bcfo\b",
     r"\bfounder\b",
-    r"\bstock price\b",
+    r"\bcurrent (ceo|cto|cfo|head|president)\b",
+    # Stock / finance
+    r"\bstock (price|market|exchange)\b",
     r"\bshare price\b",
+    r"\bmarket cap(italization)?\b",
+    r"\bannual revenue\b",
+    # Company info
     r"\bheadquarters\b",
-    r"\bwork from home\b",
-    r"\bwfh policy\b",
-    r"\bemployee count\b",
-    r"\bcompany history\b",
-    r"\bfounded in\b",
-    r"\bfounded by\b",
+    r"\bwhen was .{1,40} founded\b",
+    r"\bfounded (in|by)\b",
     r"\bowned by\b",
     r"\bled by\b",
     r"\bmanaged by\b",
-
+    r"\bnumber of employees\b",
+    r"\bhow many employees\b",
+    r"\bemployee count\b",
+    r"\bcompany history\b",
+    r"\bcompany news\b",
+    # Work policy
+    r"\bwork.?from.?home policy\b",
+    r"\bwfh policy\b",
+    r"\bremote work policy\b",
+    r"\boffice location\b",
+    # News / events
+    r"\blatest news\b",
+    r"\brecent (layoff|hiring|funding|acquisition)\b",
 ]
 
 

@@ -13,3 +13,18 @@ backend/venv/
 
 # VS Code
 .vscode/
+
+# Node modules
+node_modules/
+frontend/node_modules/
+
+# Chroma DB
+chroma_db/
+
+# Logs
+*.log
+logs/
+
+# Build output
+dist/
+build/
