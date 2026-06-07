@@ -28,3 +28,4 @@ mysql-connector-python
 typing-extensions==4.11.0
 httpx==0.27.2
 duckduckgo-search
+# railway redeploy
