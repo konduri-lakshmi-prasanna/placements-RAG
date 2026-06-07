@@ -63,11 +63,7 @@ Examples of multi-tool queries:
   → Step 2: web_search("TCS stock price today") → live price
   → Combine both
 
-STRICT RULES:
-1. NEVER guess or answer from memory — always use a tool.
-2. Always show which tool gave which part of the answer.
-3. If a tool returns no result, try another approach.
-"""
+
 
 _agent_prompt = ChatPromptTemplate.from_messages([
     ("system", AGENT_SYSTEM),
