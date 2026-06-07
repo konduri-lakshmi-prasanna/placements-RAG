@@ -62,8 +62,7 @@ Examples of multi-tool queries:
   → Step 1: mysql_placement_db → campus package
   → Step 2: web_search("TCS stock price today") → live price
   → Combine both
-
-
+"""
 
 _agent_prompt = ChatPromptTemplate.from_messages([
     ("system", AGENT_SYSTEM),
@@ -115,6 +114,5 @@ class ToolAgent:
             return answer
 
         except Exception as e:
-            # Log silently — do NOT expose raw error to the user
             logger.error(f"ToolAgent error for query '{query[:60]}': {e}")
             return "Sorry, I had trouble processing that request. Please try rephrasing your question."
