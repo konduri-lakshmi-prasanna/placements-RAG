@@ -28,3 +28,6 @@ logs/
 # Build output
 dist/
 build/
+venv/
+backend/venv/
+__pycache__/
